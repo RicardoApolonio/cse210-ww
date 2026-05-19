@@ -1,6 +1,6 @@
 using System;
-
-class Program
+namespace game
+class Program 
 {
     static void Main(string[] args)
     {
