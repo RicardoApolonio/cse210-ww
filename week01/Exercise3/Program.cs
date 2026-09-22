@@ -1,46 +1,33 @@
-using System;
+Random randomGenerator = new Random();
+string playAgain = "yes";
 
-class Program
+while (playAgain == "yes")
 {
-    static void Main(string[] args)
+    int magicNumber = randomGenerator.Next(1, 101);
+    int guess = -1;
+    int guessCount = 0;
+
+    while (guess != magicNumber)
     {
-        Console.Write("Please enter your grade percentage: ");
-        string gradeText = Console.ReadLine();
+        Console.Write("What is your guess? ");
+        guess = int.Parse(Console.ReadLine());
+        guessCount++;
 
-        int grade = int.Parse(gradeText);
-
-        string letter = "";
-
-        if (grade >= 90)
+        if (guess < magicNumber)
         {
-            letter = "A";
+            Console.WriteLine("Higher");
         }
-        else if (grade >= 80)
+        else if (guess > magicNumber)
         {
-            letter = "B";
-        }
-        else if (grade >= 70)
-        {
-            letter = "C";
-        }
-        else if (grade >= 60)
-        {
-            letter = "D";
+            Console.WriteLine("Lower");
         }
         else
         {
-            letter = "F";
-        }
-
-        Console.WriteLine($"Your grade is {letter}");
-
-        if (grade >= 70)
-        {
-            Console.WriteLine("Congratulations! You passed the course.");
-        }
-        else
-        {
-            Console.WriteLine("Keep trying! You can do better next time.");
+            Console.WriteLine("You guessed it!");
         }
     }
+
+    Console.WriteLine($"It took you {guessCount} guesses.");
+    Console.Write("Would you like to play again (yes/no)? ");
+    playAgain = Console.ReadLine().ToLower();
 }

@@ -1,32 +1,40 @@
-using System;
+List<int> numbers = new List<int>();
 
-class Program
+int number = -1;
+
+Console.WriteLine("Enter a list of numbers, type 0 when finished.");
+
+while (number != 0)
 {
-    static void Main(string[] args)
+    Console.Write("Enter number: ");
+    number = int.Parse(Console.ReadLine());
+
+    if (number != 0)
     {
-        Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101);
-
-        int guess = -1;
-
-        while (guess != magicNumber)
-        {
-            Console.Write("What is your guess? ");
-            string response = Console.ReadLine();
-            guess = int.Parse(response);
-
-            if (guess < magicNumber)
-            {
-                Console.WriteLine("Higher");
-            }
-            else if (guess > magicNumber)
-            {
-                Console.WriteLine("Lower");
-            }
-            else
-            {
-                Console.WriteLine("You guessed it!");
-            }
-        }
+        numbers.Add(number);
     }
 }
+
+int sum = 0;
+
+foreach (int num in numbers)
+{
+    sum += num;
+}
+
+Console.WriteLine($"The sum is: {sum}");
+
+float average = ((float)sum) / numbers.Count;
+Console.WriteLine($"The average is: {average}");
+
+int max = numbers[0];
+
+foreach (int num in numbers)
+{
+    if (num > max)
+    {
+        max = num;
+    }
+}
+
+Console.WriteLine($"The largest number is: {max}");
