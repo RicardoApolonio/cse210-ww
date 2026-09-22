@@ -1,61 +1,78 @@
 using System;
 
-class Program
+// EXCEEDS CORE REQUIREMENTS:
+// In addition to the required journal features, the program keeps track
+// of how many entries are currently stored and displays the total after
+// writing, loading, or displaying journal entries.
+
+Journal journal = new Journal();
+PromptGenerator promptGenerator = new PromptGenerator();
+
+int choice = 0;
+
+while (choice != 5)
 {
-    static void Main(string[] args)
+    Console.WriteLine();
+    Console.WriteLine("Welcome to the Journal Program!");
+    Console.WriteLine("Please select one of the following choices:");
+    Console.WriteLine("1. Write");
+    Console.WriteLine("2. Display");
+    Console.WriteLine("3. Load");
+    Console.WriteLine("4. Save");
+    Console.WriteLine("5. Quit");
+    Console.Write("What would you like to do? ");
+
+    choice = int.Parse(Console.ReadLine());
+
+    if (choice == 1)
     {
-        Journal theJournal = new Journal();
-        PromptGenerator promptGenerator = new PromptGenerator();
+        string prompt = promptGenerator.GetRandomPrompt();
+        Console.WriteLine(prompt);
+        Console.Write("> ");
+        string response = Console.ReadLine();
 
-        int choice = 0;
+        DateTime currentDate = DateTime.Now;
+        string dateText = currentDate.ToShortDateString();
 
-        while (choice != 5)
-        {
-            Console.WriteLine("Please select one of the following choices:");
-            Console.WriteLine("1. Write");
-            Console.WriteLine("2. Display");
-            Console.WriteLine("3. Save");
-            Console.WriteLine("4. Load");
-            Console.WriteLine("5. Quit");
+        Entry entry = new Entry();
+        entry._date = dateText;
+        entry._promptText = prompt;
+        entry._entryText = response;
 
-            Console.Write("What would you like to do? ");
-            string response = Console.ReadLine();
-            choice = int.Parse(response);
+        journal.AddEntry(entry);
 
-            if (choice == 1)
-            {
-                string prompt = promptGenerator.GetRandomPrompt();
+        Console.WriteLine($"Entry saved. Total entries: {journal._entries.Count}");
+    }
+    else if (choice == 2)
+    {
+        journal.DisplayAll();
+        Console.WriteLine($"Total entries: {journal._entries.Count}");
+    }
+    else if (choice == 3)
+    {
+        Console.Write("What is the filename? ");
+        string filename = Console.ReadLine();
 
-                Console.WriteLine(prompt);
-                Console.Write("> ");
-                string answer = Console.ReadLine();
+        journal.LoadFromFile(filename);
 
-                Entry newEntry = new Entry();
+        Console.WriteLine("Journal loaded successfully.");
+        Console.WriteLine($"Total entries: {journal._entries.Count}");
+    }
+    else if (choice == 4)
+    {
+        Console.Write("What is the filename? ");
+        string filename = Console.ReadLine();
 
-                newEntry._date = DateTime.Now.ToShortDateString();
-                newEntry._promptText = prompt;
-                newEntry._entryText = answer;
+        journal.SaveToFile(filename);
 
-                theJournal.AddEntry(newEntry);
-            }
-            else if (choice == 2)
-            {
-                theJournal.DisplayAll();
-            }
-            else if (choice == 3)
-            {
-                Console.Write("What is the filename? ");
-                string file = Console.ReadLine();
-
-                theJournal.SaveToFile(file);
-            }
-            else if (choice == 4)
-            {
-                Console.Write("What is the filename? ");
-                string file = Console.ReadLine();
-
-                theJournal.LoadFromFile(file);
-            }
-        }
+        Console.WriteLine("Journal saved successfully.");
+    }
+    else if (choice == 5)
+    {
+        Console.WriteLine("Goodbye!");
+    }
+    else
+    {
+        Console.WriteLine("Please select a valid option.");
     }
 }

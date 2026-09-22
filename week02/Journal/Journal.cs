@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 public class Journal
 {
     public List<Entry> _entries = new List<Entry>();
@@ -32,6 +28,8 @@ public class Journal
 
     public void LoadFromFile(string file)
     {
+        _entries.Clear();
+
         string[] lines = File.ReadAllLines(file);
 
         foreach (string line in lines)
@@ -39,7 +37,6 @@ public class Journal
             string[] parts = line.Split("|");
 
             Entry entry = new Entry();
-
             entry._date = parts[0];
             entry._promptText = parts[1];
             entry._entryText = parts[2];
