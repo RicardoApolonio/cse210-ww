@@ -1,10 +1,11 @@
-class Comment
+public class Comment
 {
     public string _name;
     public string _text;
 
-    public string GetCommentDetails()
+    public Comment(string name, string text)
     {
-        return $"{_name}: {_text}";
+        _name = name;
+        _text = text;
     }
 }
