@@ -1,3 +1,4 @@
+
 public class ChecklistGoal : Goal
 {
     private int _amountCompleted;
@@ -14,9 +15,14 @@ public class ChecklistGoal : Goal
 
     public override int RecordEvent()
     {
+        if (IsComplete())
+        {
+            return 0;
+        }
+
         _amountCompleted++;
 
-        if (_amountCompleted >= _target)
+        if (_amountCompleted == _target)
         {
             return _points + _bonus;
         }
@@ -32,6 +38,7 @@ public class ChecklistGoal : Goal
     public override string GetDetailsString()
     {
         string status = IsComplete() ? "X" : " ";
+
         return $"[{status}] {_name} ({_description}) -- Currently completed: {_amountCompleted}/{_target}";
     }
 
