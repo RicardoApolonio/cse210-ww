@@ -1,3 +1,4 @@
+
 using System;
 
 public class Cycling : Activity
@@ -12,7 +13,7 @@ public class Cycling : Activity
 
     public override double GetDistance()
     {
-        return (_speed * GetMinutes()) / 60;
+        return _speed * GetMinutes() / 60;
     }
 
     public override double GetSpeed()

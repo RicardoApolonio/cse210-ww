@@ -1,3 +1,4 @@
+
 using System;
 
 public class Swimming : Activity
@@ -12,12 +13,12 @@ public class Swimming : Activity
 
     public override double GetDistance()
     {
-        return (_laps * 50 / 1000.0) * 0.62;
+        return _laps * 50.0 / 1000;
     }
 
     public override double GetSpeed()
     {
-        return (GetDistance() / GetMinutes()) * 60;
+        return GetDistance() / GetMinutes() * 60;
     }
 
     public override double GetPace()
